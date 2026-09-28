@@ -223,11 +223,12 @@ export default function PlaylistView({
       });
       if (!uploadRes.ok) throw new Error('Upload failed');
 
-      // Update playlist cover URL
+      // Update playlist cover URL with a timestamp to bust the browser cache
+      const timestampedUrl = `${publicUrl}?t=${Date.now()}`;
       const patchRes = await fetch(`/api/playlists/${playlist.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ cover_url: publicUrl }),
+        body: JSON.stringify({ cover_url: timestampedUrl }),
       });
       if (!patchRes.ok) throw new Error('Failed to update playlist');
 
