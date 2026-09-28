@@ -757,7 +757,7 @@ body{
         align-items: center;
         justify-content: center;
         position: fixed;
-        top: 12px;
+        top: 8px;
         left: 10px;
         width: 32px;
         height: 32px;
@@ -772,8 +772,9 @@ body{
 
     /* ---- Navbar ---- */
     nav {
-        margin: 6px 8px;
+        margin: 4px 8px;
         padding: 0;
+        min-height: 36px;
     }
 
     nav .logo {
@@ -853,7 +854,7 @@ body{
 
     /* ---- Main layout ---- */
     .main {
-        margin-top: 4px;
+        margin-top: 0;
         gap: 0;
     }
 
@@ -932,57 +933,51 @@ body{
         width: 100vw;
         height: auto;
         padding: 8px 12px 10px;
-        gap: 4px;
+        gap: 2px;
         border-radius: 0;
         z-index: 900;
+        flex-direction: column;
     }
 
     .above {
         width: 100%;
-        flex-wrap: nowrap;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 10px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
         margin-top: 0;
     }
 
-    /* Song name: truncate, never overflow */
+    /* Song name: full width on its own line */
     .barname {
-        width: auto;
-        flex: 1;
-        min-width: 0;
-        font-size: 11px;
+        width: 100%;
+        font-size: 13px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        text-align: center;
     }
 
-    /* Play controls stay compact */
+    /* Controls row: play buttons + time centered */
     .barbtn {
-        gap: 4px;
+        gap: 12px;
         flex-shrink: 0;
+        justify-content: center;
     }
 
     .barbtn svg,
     .barbtn img {
-        width: 22px;
-        height: 22px;
+        width: 24px;
+        height: 24px;
     }
 
-    /* Hide volume entirely on mobile — no overflow, no clutter */
+    /* Hide volume entirely on mobile */
     .volumespace {
         display: none !important;
     }
 
-    /* Time stays small on the right */
+    /* Time next to controls */
     .rightabove {
-        flex-shrink: 0;
-        gap: 0;
-        align-items: center;
-    }
-
-    .timeduration {
-        font-size: 9px;
+        display: none !important;
     }
 
     /* Seekbar stretches full width */
