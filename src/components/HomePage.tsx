@@ -111,6 +111,10 @@ export default function HomePage() {
       <div className="hamburger" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
         {mobileMenuOpen ? '✕' : '☰'}
       </div>
+      <div
+        className={`sidebar-overlay ${mobileMenuOpen ? 'visible' : ''}`}
+        onClick={() => setMobileMenuOpen(false)}
+      />
       <div className="main">
         <div className={`sidebar-wrapper ${mobileMenuOpen ? 'open' : ''}`}>
           <Sidebar
@@ -119,7 +123,7 @@ export default function HomePage() {
             playlistSongs={playlistSongs}
             onPlaylistSelect={(id) => {
               handlePlaylistSelect(id);
-              setMobileMenuOpen(false); // Close menu on select
+              setMobileMenuOpen(false);
             }}
             onCreatePlaylist={() => setShowCreateModal(true)}
           />

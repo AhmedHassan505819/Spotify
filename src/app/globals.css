@@ -733,44 +733,106 @@ body{
     text-overflow: ellipsis;
 }
 
+
 /* ======== Mobile Media Queries ======== */
 .hamburger {
     display: none;
 }
 
+/* Overlay behind open sidebar */
+.sidebar-overlay {
+    display: none;
+}
+
 @media (max-width: 768px) {
+
+    /* ---- Prevent all overflow ---- */
+    html, body {
+        overflow-x: hidden;
+    }
+
+    /* ---- Hamburger button ---- */
     .hamburger {
         display: flex;
         align-items: center;
         justify-content: center;
-        position: absolute;
-        top: 25px;
-        left: 20px;
-        width: 35px;
-        height: 35px;
+        position: fixed;
+        top: 12px;
+        left: 10px;
+        width: 32px;
+        height: 32px;
         background: #1f1f1f;
         color: white;
-        font-size: 20px;
-        z-index: 1000;
+        font-size: 18px;
+        z-index: 1001;
         cursor: pointer;
-        border-radius: 5px;
+        border-radius: 6px;
         border: 1px solid #333;
     }
 
+    /* ---- Navbar ---- */
+    nav {
+        margin: 6px 8px;
+        padding: 0;
+    }
+
+    nav .logo {
+        margin-left: 38px;
+    }
+
+    nav .logo svg {
+        width: 90px;
+        height: 22px;
+    }
+
+    /* Hide search bar + icons on mobile */
+    .cent {
+        display: none !important;
+    }
+
+    .headerbtn {
+        gap: 6px;
+    }
+
+    .sign, .log {
+        padding: 5px 10px;
+        font-size: 9px;
+    }
+
+    /* ---- Sidebar overlay (dim background) ---- */
+    .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 998;
+    }
+
+    .sidebar-overlay.visible {
+        display: block;
+    }
+
+    /* ---- Sidebar ---- */
     .sidebar-wrapper {
         position: fixed;
         top: 0;
-        left: -100%;
-        width: 80vw;
+        left: 0;
+        width: 75vw;
+        max-width: 300px;
         height: 100vh;
-        background: black;
+        background: #121212;
         z-index: 999;
-        transition: left 0.3s ease;
-        padding-top: 70px;
+        transform: translateX(-100%);
+        transition: transform 0.25s ease;
+        padding-top: 56px;
+        overflow-y: auto;
     }
 
     .sidebar-wrapper.open {
-        left: 0;
+        transform: translateX(0);
     }
 
     .library {
@@ -778,41 +840,185 @@ body{
         height: 100%;
         margin: 0;
         border-radius: 0;
+        background: transparent;
     }
 
+    .leftSongs {
+        height: calc(100vh - 180px);
+    }
+
+    .footer {
+        display: none;
+    }
+
+    /* ---- Main layout ---- */
     .main {
+        margin-top: 4px;
+        gap: 0;
+    }
+
+    /* ---- Playlist / content area ---- */
+    .playlist {
+        width: 100vw;
+        height: calc(100vh - 55px);
+        border-radius: 0;
+    }
+
+    .playlist nav {
+        font-size: 16px;
+        padding: 4px;
+    }
+
+    /* ---- Album grid ---- */
+    .Album {
+        margin: 10px 10px;
+        gap: 10px;
+        height: calc(100vh - 230px);
+    }
+
+    .AlbumCard {
+        width: calc(50% - 10px);
+        height: 180px;
+        padding: 8px;
+    }
+
+    .AlbumCard img {
+        width: 100%;
+        height: 110px;
+        object-fit: cover;
+    }
+
+    .Aname {
+        font-size: 12px;
+    }
+
+    .description {
+        font-size: 9px;
+    }
+
+    /* ---- Playlist view ---- */
+    .playlist-header {
+        padding: 10px 12px;
+        gap: 12px;
+    }
+
+    .playlist-cover {
+        width: 70px;
+        height: 70px;
+    }
+
+    .playlist-title {
+        font-size: 16px;
+    }
+
+    .song-list {
+        padding: 0 10px;
+        height: calc(100vh - 310px);
+    }
+
+    .song-row {
+        padding: 6px 4px;
+        font-size: 10px;
+    }
+
+    /* ---- Playbar: compact mobile layout ---- */
+    .playbar {
+        width: 100%;
+        height: auto;
+        padding: 6px 10px 8px;
+        gap: 4px;
+        bottom: 0;
+        left: 0;
+        border-radius: 0;
+    }
+
+    .above {
+        width: 100%;
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 8px;
         margin-top: 0;
     }
 
-    .playlist {
-        width: 100vw;
-        height: calc(100vh - 80px); /* adjust for mobile navbar */
-        border-radius: 0;
-        margin: 0;
+    /* Song name: shrink to fit, don't push things off screen */
+    .barname {
+        width: auto;
+        flex: 1;
+        min-width: 0;
+        font-size: 11px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
-    /* Make playbar seekbar stretch */
-    .playbar {
-        width: 100%;
-        padding: 10px;
+    /* Play controls stay compact */
+    .barbtn {
+        gap: 4px;
+        flex-shrink: 0;
     }
 
-    .bar input {
-        width: 75vw !important; /* Stretch seekbar */
+    .barbtn svg,
+    .barbtn img {
+        width: 22px;
+        height: 22px;
     }
 
+    /* Volume + time tucked to the right */
     .rightabove {
-        flex-direction: column;
+        flex-shrink: 0;
+        gap: 6px;
         align-items: center;
+    }
+
+    .timeduration {
+        font-size: 9px;
+    }
+
+    .volrange {
+        width: 10px;
+    }
+
+    .volrange input {
+        width: 50px;
+    }
+
+    .volimg img {
+        width: 16px;
+        height: 16px;
+    }
+
+    /* Seekbar stretches full width */
+    .seekbar {
+        width: 100% !important;
+    }
+
+    .below {
         width: 100%;
+        padding: 0;
     }
 
-    .volumespace {
-        margin-top: 10px;
+    /* ---- Modals ---- */
+    .modal {
+        width: 90vw;
+    }
+}
+
+/* ---- Extra small screens (under 400px) ---- */
+@media (max-width: 400px) {
+    .timeduration {
+        display: none;
     }
 
-    /* Hide logo on very small screens to make room for hamburger */
-    nav .logo {
-        margin-left: 50px;
+    .volrange {
+        display: none;
+    }
+
+    .barname {
+        font-size: 10px;
+    }
+
+    .AlbumCard {
+        width: 100%;
+        height: 160px;
     }
 }
