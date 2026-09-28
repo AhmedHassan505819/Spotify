@@ -862,6 +862,7 @@ body{
         width: 100vw;
         height: calc(100vh - 55px);
         border-radius: 0;
+        position: relative;
     }
 
     .playlist nav {
@@ -873,7 +874,8 @@ body{
     .Album {
         margin: 10px 10px;
         gap: 10px;
-        height: calc(100vh - 230px);
+        height: calc(100vh - 180px);
+        padding-bottom: 80px;
     }
 
     .AlbumCard {
@@ -914,6 +916,7 @@ body{
     .song-list {
         padding: 0 10px;
         height: calc(100vh - 310px);
+        padding-bottom: 80px;
     }
 
     .song-row {
@@ -921,26 +924,29 @@ body{
         font-size: 10px;
     }
 
-    /* ---- Playbar: compact mobile layout ---- */
+    /* ---- Playbar: fixed to bottom ---- */
     .playbar {
-        width: 100%;
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        width: 100vw;
         height: auto;
-        padding: 6px 10px 8px;
+        padding: 8px 12px 10px;
         gap: 4px;
-        bottom: 0;
-        left: 0;
         border-radius: 0;
+        z-index: 900;
     }
 
     .above {
         width: 100%;
         flex-wrap: nowrap;
         align-items: center;
-        gap: 8px;
+        justify-content: flex-start;
+        gap: 10px;
         margin-top: 0;
     }
 
-    /* Song name: shrink to fit, don't push things off screen */
+    /* Song name: truncate, never overflow */
     .barname {
         width: auto;
         flex: 1;
@@ -963,28 +969,20 @@ body{
         height: 22px;
     }
 
-    /* Volume + time tucked to the right */
+    /* Hide volume entirely on mobile — no overflow, no clutter */
+    .volumespace {
+        display: none !important;
+    }
+
+    /* Time stays small on the right */
     .rightabove {
         flex-shrink: 0;
-        gap: 6px;
+        gap: 0;
         align-items: center;
     }
 
     .timeduration {
         font-size: 9px;
-    }
-
-    .volrange {
-        width: 10px;
-    }
-
-    .volrange input {
-        width: 50px;
-    }
-
-    .volimg img {
-        width: 16px;
-        height: 16px;
     }
 
     /* Seekbar stretches full width */
@@ -1006,10 +1004,6 @@ body{
 /* ---- Extra small screens (under 400px) ---- */
 @media (max-width: 400px) {
     .timeduration {
-        display: none;
-    }
-
-    .volrange {
         display: none;
     }
 
