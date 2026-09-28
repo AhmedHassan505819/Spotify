@@ -24,6 +24,7 @@ export default function HomePage() {
 
   // Modals
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // ======== Fetch playlists ========
   const fetchPlaylists = useCallback(async () => {
@@ -107,14 +108,22 @@ export default function HomePage() {
   return (
     <>
       <Navbar />
+      <div className="hamburger" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+        {mobileMenuOpen ? '✕' : '☰'}
+      </div>
       <div className="main">
-        <Sidebar
-          playlists={playlists}
-          activePlaylistId={activePlaylistId}
-          playlistSongs={playlistSongs}
-          onPlaylistSelect={handlePlaylistSelect}
-          onCreatePlaylist={() => setShowCreateModal(true)}
-        />
+        <div className={`sidebar-wrapper ${mobileMenuOpen ? 'open' : ''}`}>
+          <Sidebar
+            playlists={playlists}
+            activePlaylistId={activePlaylistId}
+            playlistSongs={playlistSongs}
+            onPlaylistSelect={(id) => {
+              handlePlaylistSelect(id);
+              setMobileMenuOpen(false); // Close menu on select
+            }}
+            onCreatePlaylist={() => setShowCreateModal(true)}
+          />
+        </div>
         <div className="playlist">
           {activePlaylist && activePlaylistId ? (
             <PlaylistView
