@@ -43,7 +43,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return () => subscription.unsubscribe();
   }, []);
 
+  // TESTING ONLY: restrict sign-ups to allowed emails to protect R2 storage
+  const ALLOWED_EMAILS = ['your-email@example.com']; // ← put your email here
+
   const signUp = async (email: string, password: string): Promise<{ error?: string }> => {
+    if (!ALLOWED_EMAILS.includes(email.toLowerCase())) {
+      return { error: 'Sign-ups are currently restricted. Contact the admin.' };
+    }
     const supabase = createClient();
     const { error } = await supabase.auth.signUp({ email, password });
     if (error) return { error: error.message };
